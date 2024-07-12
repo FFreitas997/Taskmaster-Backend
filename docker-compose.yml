@@ -16,7 +16,7 @@ services:
       - taskmaster-network
 
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0.2
+    image: quay.io/keycloak/keycloak:latest
     container_name: keycloak-taskmaster
     ports:
       - 9090:8080
@@ -29,7 +29,7 @@ services:
       - "start-dev"
 
   mail-dev:
-    image: maildev/maildev
+    image: maildev/maildev:latest
     container_name: mail-taskmaster
     ports:
       - "1080:1080"
