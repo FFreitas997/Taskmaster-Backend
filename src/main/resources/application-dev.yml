@@ -35,7 +35,7 @@ spring:
           issuer-uri: http://localhost:9090/realms/taskmaster
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
           resourceId: taskmaster-client
-          principal-name: email
+          principal-name: preferred_username
 
   cors:
     allowed-origins: http://localhost:4200
