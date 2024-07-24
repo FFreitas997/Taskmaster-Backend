@@ -10,14 +10,14 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
-
-    @Value("${spring.security.oauth2.resourceserver.jwt.resourceId}")
-    private String resourceId;
 
     @Value("${spring.security.oauth2.resourceserver.jwt.principal-name}")
     private String principalName;
@@ -28,7 +28,6 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
                 new JwtGrantedAuthoritiesConverter().convert(source).stream(),
                 extractResourceRoles(source).stream()
         ).collect(Collectors.toSet());
-
         return new JwtAuthenticationToken(source, authorities, getPrincipalClaimName(source));
     }
 
@@ -37,11 +36,9 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
     }
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt source) {
-        HashMap<String, Object> resourceAccess = new HashMap<>(source.getClaim("resource_access"));
+        HashMap<String, Object> resourceAccess = new HashMap<>(source.getClaim("realm_access"));
 
-        Map<String, List<String>> aux = (Map<String, List<String>>) resourceAccess.get(resourceId);
-
-        List<String> roles = aux.get("roles");
+        ArrayList<String> roles = (ArrayList<String>) resourceAccess.get("roles");
 
         return roles.stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.replace("-", "_"))).collect(Collectors.toSet());
     }
