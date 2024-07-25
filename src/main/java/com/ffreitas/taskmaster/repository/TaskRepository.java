@@ -16,4 +16,7 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     @Query("select t from Task t where t.status = ?1 and t.createdBy = ?2")
     Page<Task> findByStatusAndCreatedBy(@NonNull TaskStatus status, @NonNull String createdBy, Pageable pageable);
+
+    @Query("select t from Task t where t.createdBy = ?1 and t.status <> ?2")
+    Page<Task> findByCreatedByAndStatusNot(@NonNull String createdBy, @NonNull TaskStatus status, Pageable pageable);
 }

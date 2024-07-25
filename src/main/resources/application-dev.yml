@@ -49,6 +49,7 @@ springdoc:
     filter: true
     operations-sorter: method
   show-actuator: true
+  default-produces-media-type: application/json
 
 management:
   endpoints:

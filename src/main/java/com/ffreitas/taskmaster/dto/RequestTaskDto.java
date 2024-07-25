@@ -27,6 +27,7 @@ public record RequestTaskDto(
         @Future(message = "Due date must be in the future")
         LocalDateTime dueDate,
 
+        @NotNull(message = "Status is required")
         TaskStatus status,
 
         @NotNull(message = "Priority is required")

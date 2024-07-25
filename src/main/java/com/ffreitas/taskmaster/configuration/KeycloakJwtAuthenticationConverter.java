@@ -32,7 +32,7 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
     }
 
     private String getPrincipalClaimName(Jwt source) {
-        return source.getClaim(principalName);
+        return source.getClaim(principalName == null ? "email" : principalName);
     }
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt source) {

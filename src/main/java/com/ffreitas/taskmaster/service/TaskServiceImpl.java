@@ -55,7 +55,7 @@ public class TaskServiceImpl implements TaskService {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("dueDate").ascending());
 
-        return repository.findByCreatedBy(name, pageable)
+        return repository.findByCreatedByAndStatusNot(name, TaskStatus.ARCHIVED, pageable)
                 .map(param -> TaskDto.builder()
                         .id(param.getId())
                         .title(param.getTitle())
