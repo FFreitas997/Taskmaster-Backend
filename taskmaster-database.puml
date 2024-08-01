@@ -14,19 +14,6 @@ class Task {
     -lastModifiedBy: String
 }
 
-class TaskAttachment{
-    -id: Integer
-    -taskId: Integer
-    -path: String
-    -type: String
-    -size: Integer
-    -createdAt: LocalDateTime
-    -createdBy: String
-    -lastModified: LocalDateTime
-    -lastModifiedBy: String
-
-}
-
 class TaskComment{
     -id: Integer
     -taskId: Integer
@@ -50,19 +37,11 @@ enum TaskPriority {
     HIGH
 }
 
-enum TaskAttachmentType {
-    IMAGE
-    VIDEO
-    AUDIO
-    DOCUMENT
-    FILE
-}
 
 TaskStatus <|- Task
 TaskPriority <|- Task
-TaskAttachmentType <|- TaskAttachment
 
-Task "1" *-- "0.*" TaskAttachment
+
 Task "1" *-- "0.*" TaskComment
 
 @enduml

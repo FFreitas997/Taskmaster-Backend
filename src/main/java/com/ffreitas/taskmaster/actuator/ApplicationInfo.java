@@ -10,7 +10,7 @@ public class ApplicationInfo implements InfoContributor {
     @Override
     public void contribute(Info.Builder builder) {
         // Adding the application name to the info details
-        builder.withDetail("Application Name", "Taskmaster")
+        builder.withDetail("ApplicationName", "Taskmaster")
                 // Adding a description of the application to the info details
                 .withDetail("Description", "This is a simple task management system")
                 // Adding the version of the application to the info details

@@ -19,9 +19,6 @@ import java.util.stream.Stream;
 
 public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
 
-    @Value("${spring.security.oauth2.resourceserver.jwt.principal-name}")
-    private String principalName;
-
     @Override
     public AbstractAuthenticationToken convert(@NonNull Jwt source) {
         Set<GrantedAuthority> authorities = Stream.concat(
@@ -32,7 +29,7 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
     }
 
     private String getPrincipalClaimName(Jwt source) {
-        return source.getClaim(principalName == null ? "email" : principalName);
+        return source.getClaim("preferred_username");
     }
 
     private Collection<? extends GrantedAuthority> extractResourceRoles(Jwt source) {

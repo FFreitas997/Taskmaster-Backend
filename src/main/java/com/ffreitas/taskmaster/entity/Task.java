@@ -42,11 +42,8 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskPriority priority;
 
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TaskComment> comments;
-
-    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
-    private List<TaskAttachment> attachments;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreatedDate
