@@ -1,15 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
-class BaseEntity {
-    -id: Integer
-    -createdAt: LocalDateTime
-    -createdBy: String
-    -lastModified: LocalDateTime
-    -lastModifiedBy: String
-}
-
 class Task {
     -id: Integer
     -title: String
@@ -17,22 +8,27 @@ class Task {
     -dueDate: LocalDateTime
     -status: TaskStatus
     -priority: TaskPriority
-    -archived: boolean
-    -category: Category
-}
-
-class Category {
-    -id: Integer
-    -name: String
-    -description: String
     -createdAt: LocalDateTime
     -createdBy: String
+    -lastModified: LocalDateTime
+    -lastModifiedBy: String
+}
+
+class TaskComment{
+    -id: Integer
+    -taskId: Integer
+    -comment: String
+    -createdAt: LocalDateTime
+    -createdBy: String
+    -lastModified: LocalDateTime
+    -lastModifiedBy: String
 }
 
 enum TaskStatus {
-    PENDING
+    TODO
     IN_PROGRESS
-    DONE
+    COMPLETED
+    ARCHIVED
 }
 
 enum TaskPriority {
@@ -41,9 +37,11 @@ enum TaskPriority {
     HIGH
 }
 
-BaseEntity <|---- Task
-Category "1"<---->"N" Task
+
 TaskStatus <|- Task
 TaskPriority <|- Task
+
+
+Task "1" *-- "0.*" TaskComment
 
 @enduml
